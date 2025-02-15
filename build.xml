@@ -1,0 +1,31 @@
+<!-- https://ant.apache.org/manual/using.html -->
+<!-- https://www.vogella.com/tutorials/ApacheAnt/article.html -->
+<project name="JUnit" default="run">
+	<target name="run" depends="build">
+        <java jar="junit.jar" fork="true">
+			<arg line="-cp . --scan-classpath"/>
+		</java>
+    </target>
+	<target name="build">
+		<javac srcdir="." includeantruntime="false" >
+			<classpath>
+				<pathelement location="junit.jar"/>
+			</classpath>
+		</javac>
+	</target>
+    <target name="clean">
+        <delete>
+			<fileset dir="." includes="*.class"/>
+        </delete>
+        <delete dir="docs" />
+    </target>
+    <target name="javadoc">
+		<mkdir dir="docs"/>
+		<javadoc destdir="docs">
+			<classpath>
+				<pathelement location="junit.jar"/>
+			</classpath>
+			<fileset dir="."/>
+		</javadoc>
+    </target>
+</project>
